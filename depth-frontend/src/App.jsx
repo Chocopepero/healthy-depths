@@ -46,13 +46,14 @@ export default function App() {
     stage,
     clinicalSummary,
     triage,
-    drugInteractions,
+    drugInteractionSummary,
+    medSources,
     clinics,
     send,
     reset,
   } = useChat();
 
-  const hasSidebar = clinicalSummary || triage || drugInteractions || clinics;
+  const hasSidebar = clinicalSummary || triage || drugInteractionSummary || clinics;
 
   return (
     <div className="depth-bg min-h-screen flex flex-col">
@@ -110,8 +111,8 @@ export default function App() {
           <div className="flex-1 min-w-0 space-y-4 overflow-y-auto pb-4">
             {triage && <TriageBadge triage={triage} />}
             {clinicalSummary && <ClinicalSummary summary={clinicalSummary} />}
-            {drugInteractions && drugInteractions.length > 0 && (
-              <MedInteractionCard interactions={drugInteractions} />
+            {drugInteractionSummary && (
+              <MedInteractionCard summary={drugInteractionSummary} sources={medSources} />
             )}
             {clinics && clinics.length > 0 && (
               <div className="animate-surface-up rounded-2xl border border-cyan-bio/15 bg-navy-800 overflow-hidden">

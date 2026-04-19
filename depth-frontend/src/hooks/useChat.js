@@ -9,6 +9,8 @@ export function useChat() {
   const [clinicalSummary, setClinicalSummary] = useState(null);
   const [triage, setTriage] = useState(null);
   const [drugInteractions, setDrugInteractions] = useState(null);
+  const [drugInteractionSummary, setDrugInteractionSummary] = useState(null);
+  const [medSources, setMedSources] = useState(null);
   const [clinics, setClinics] = useState(null);
 
   const send = useCallback(
@@ -34,6 +36,8 @@ export function useChat() {
         if (response.clinical_summary) setClinicalSummary(response.clinical_summary);
         if (response.triage) setTriage(response.triage);
         if (response.drug_interactions) setDrugInteractions(response.drug_interactions);
+        if (response.drug_interaction_summary) setDrugInteractionSummary(response.drug_interaction_summary);
+        if (response.med_sources) setMedSources(response.med_sources);
         if (response.clinics) setClinics(response.clinics);
       } catch (err) {
         setError("Something went wrong. Please try again.");
@@ -51,6 +55,8 @@ export function useChat() {
     setClinicalSummary(null);
     setTriage(null);
     setDrugInteractions(null);
+    setDrugInteractionSummary(null);
+    setMedSources(null);
     setClinics(null);
     setError(null);
   }, []);
@@ -63,6 +69,8 @@ export function useChat() {
     clinicalSummary,
     triage,
     drugInteractions,
+    drugInteractionSummary,
+    medSources,
     clinics,
     send,
     reset,

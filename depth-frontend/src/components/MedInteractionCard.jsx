@@ -1,11 +1,5 @@
-export default function MedInteractionCard({ interactions }) {
-  if (!interactions || interactions.length === 0) return null;
-
-  const severityColor = {
-    HIGH: "text-red-400 border-red-500/30 bg-red-950/30",
-    MEDIUM: "text-yellow-400 border-yellow-500/30 bg-yellow-950/30",
-    LOW: "text-blue-400 border-blue-500/30 bg-blue-950/30",
-  };
+export default function MedInteractionCard({ summary, sources }) {
+  if (!summary) return null;
 
   return (
     <div className="animate-surface-up rounded-2xl border border-yellow-500/20 bg-navy-800 overflow-hidden">
@@ -16,24 +10,29 @@ export default function MedInteractionCard({ interactions }) {
         </span>
       </div>
 
-      <div className="p-4 space-y-3">
-        {interactions.map((item, i) => (
-          <div
-            key={i}
-            className={`rounded-xl border px-4 py-3 text-sm ${
-              severityColor[item.severity] ?? severityColor.MEDIUM
-            }`}
-          >
-            <div className="font-semibold mb-1 capitalize">{item.drug}</div>
-            <div className="text-slate-300 text-xs leading-relaxed">{item.warning}</div>
-          </div>
-        ))}
+      <div className="px-5 py-4 text-sm text-slate-300 leading-relaxed">
+        {summary}
       </div>
 
-      <div className="px-5 py-3 border-t border-yellow-500/10 bg-navy-900/40">
-        <span className="font-mono text-xs text-slate-500">
-          Source: OpenFDA adverse event database
-        </span>
+      <div className="px-5 py-3 border-t border-yellow-500/10 bg-navy-900/40 space-y-1.5">
+        {sources && sources.length > 0 ? (
+          <>
+            <p className="font-mono text-xs text-slate-500">Learn more:</p>
+            {sources.map((s, i) => (
+              <a
+                key={i}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block font-mono text-xs text-cyan-bio/70 hover:text-cyan-bio truncate transition-colors"
+              >
+                {s.title}
+              </a>
+            ))}
+          </>
+        ) : (
+          <span className="font-mono text-xs text-slate-500">Source: OpenFDA adverse event database</span>
+        )}
       </div>
     </div>
   );

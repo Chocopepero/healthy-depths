@@ -31,12 +31,19 @@ class Clinic(BaseModel):
     website: Optional[str] = None
 
 
+class MedSource(BaseModel):
+    title: str
+    url: str
+
+
 class ChatResponse(BaseModel):
     message: str
     stage: str  # "INTAKE", "SUMMARY", "TRIAGE", "GUIDANCE", "COMPLETE"
     clinical_summary: Optional[str] = None
     triage: Optional[TriageData] = None
     drug_interactions: Optional[List[DrugInteraction]] = None
+    drug_interaction_summary: Optional[str] = None
+    med_sources: Optional[List[MedSource]] = None
     clinics: Optional[List[Clinic]] = None
 
 

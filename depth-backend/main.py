@@ -1,5 +1,4 @@
 import os
-from contextlib import asynccontextmanager
 
 from dotenv import load_dotenv
 from fastapi import FastAPI, Query
@@ -13,13 +12,7 @@ from integrations import hrsa, openfda, human_delta
 from models.schemas import InteractionRequest, InteractionResponse, DrugInteraction
 
 
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    await human_delta.index_sources()
-    yield
-
-
-app = FastAPI(title="Depth API", version="1.0.0", lifespan=lifespan)
+app = FastAPI(title="Depth API", version="1.0.0")
 
 app.add_middleware(
     CORSMiddleware,
